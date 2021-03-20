@@ -46,7 +46,7 @@ class blogController extends Controller
         ]);
     }
 
-    public function update($postid)
+    public function update(Request $request,$postid)
     {
         dd($postid);
     }

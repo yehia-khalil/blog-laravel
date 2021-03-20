@@ -22,9 +22,10 @@
                 Featured
             </div>
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">Title</h5>
+                <p class="card-text">{{$posts['title']}}</p>
+                <h5 class="card-title">Description</h5>
+                <p class="card-text">{{$posts['id']}}</p>
             </div>
         </div>
     </div>

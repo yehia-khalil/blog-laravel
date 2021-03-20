@@ -14,12 +14,12 @@ class blogController extends Controller
             ['id' => 3, 'title' => 'Javascript', 'posted_by' => 'Ali', 'created_at' => '2021-06-01'],
         ];
 
-        return view("blogs.index", [
+        return view("index", [
             'posts' => $posts
         ]);
     }
     
-    public function show()
+    public function show($postid)
     {
         $posts = [
             ['id' => 1, 'title' => 'laravel', 'posted_by' => 'Ahmed', 'created_at' => '2021-03-20'],
@@ -27,8 +27,8 @@ class blogController extends Controller
             ['id' => 3, 'title' => 'Javascript', 'posted_by' => 'Ali', 'created_at' => '2021-06-01'],
         ];
 
-        return view("blogs.show", [
-            'posts' => $posts
+        return view("show", [
+            'posts' => $posts[$postid-1]
         ]);
     }
 }

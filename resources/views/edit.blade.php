@@ -18,7 +18,7 @@
     </nav>
 
     <div class="container">
-        <form method="PUT" action="/blogs/{{$posts['id']}}">
+        <form method="PUT" action="{{route('blogs.update',['blog'=>$posts['id']])}}">
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>

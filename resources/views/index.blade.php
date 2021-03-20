@@ -36,7 +36,7 @@
                     <td>{{$post['posted_by']}}</td>
                     <td>{{Carbon\Carbon::now()}}</td>
                     <td>
-                        <a href="blogs/{{$post['id']}}" type="button" class="btn btn-success">view</a>
+                        <a href="{{route('blogs.show',['blog'=>$post['id']])}}" type="button" class="btn btn-success">view</a>
                         <a class="btn btn-danger">delete</a>
                         <a href="blogs/{{$post['id']}}/edit" class="btn btn-warning">edit</a>
                     </td>
@@ -44,7 +44,8 @@
                 @endforeach
             </tbody>
         </table>
-        
+
+        <x-button type="primary">View</x-button>
         <a href="blogs/create" type="button" class="btn btn-success">Create New Post</a>
     </div>
 

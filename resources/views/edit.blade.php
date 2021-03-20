@@ -1,16 +1,17 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <form method="POST" action="{{route('blogs.update',['blog'=>$posts['id']])}}">
+        <form method="POST" action="{{ route('blogs.update', ['blog' => $posts['id']]) }}">
             @csrf
             @method('PUT')
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp" value="{{$posts['title']}}">
+                <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp"
+                    value="{{ $posts['title'] }}">
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" name="description"> {{$posts['description']}}</textarea>
+                <textarea class="form-control" id="description" name="description"> {{ $posts['description'] }}</textarea>
             </div>
             <div class="form-group">
                 <label for="post_creator">Post Creator</label>
@@ -22,4 +23,4 @@
         </form>
     </div>
 
-    @endsection
+@endsection

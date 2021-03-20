@@ -25,7 +25,7 @@
                 <h5 class="card-title">Title</h5>
                 <p class="card-text">{{$posts['title']}}</p>
                 <h5 class="card-title">Description</h5>
-                <p class="card-text">{{$posts['id']}}</p>
+                <p class="card-text">{{$posts['description']}}</p>
             </div>
         </div>
     </div>

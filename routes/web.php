@@ -19,7 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blogs', [blogController::class,'index'])->name('blogs.index');
+Route::get('/blogs', [blogController::class, 'index'])->name('blogs.index');
 
-Route::get('/blogs/{blog}', [blogController::class,'show'])->name('blogs.show');
+Route::get('/blogs/create', [blogController::class, 'create'])->name('blogs.create');
 
+Route::get('/blogs/{blog}', [blogController::class, 'show'])->name('blogs.show');
+
+Route::get('/blogs/{blog}/edit', [blogController::class, 'edit'])->name('blogs.edit');
+
+Route::put('/blogs/{blog}', [blogController::class, 'update'])->name('blogs.update');
+
+Route::post('/blogs', [blogController::class, 'store'])->name('blogs.store');

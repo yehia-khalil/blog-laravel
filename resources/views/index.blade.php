@@ -21,7 +21,7 @@
                         <th scope="row">{{ $post['id'] }}</th>
                         <td>{{ $post['title'] }}</td>
                         <td>{{ $post['author'] }}</td>
-                        <td>{{ $post['created_at'] }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post['created_at'])->format('Y-m-d') }}</td>
                         <td>
                             <a href="{{ route('blogs.show', ['blog' => $post['id']]) }}" type="button"
                                 class="btn btn-success">view</a>

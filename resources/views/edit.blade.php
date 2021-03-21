@@ -16,7 +16,9 @@
             <div class="form-group">
                 <label for="post_creator">Post Creator</label>
                 <select class="form-control" id="post_creator" name="creator">
-                    <option>{{$posts->author}}</option>
+                    @foreach ($users as $user)
+                        <option>{{$user->name}}</option>
+                    @endforeach
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Edit Post</button>

@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::get('/blogs', [blogController::class, 'index'])->name('blogs.index');
 
+Route::get('/blogs/page/{page}', [blogController::class, 'page'])->name('blogs.page');
+
 Route::get('/blogs/create', [blogController::class, 'create'])->name('blogs.create');
 
 Route::get('/blogs/create/user', [blogController::class, 'createUser'])->name('blogs.createUser');
@@ -34,3 +36,8 @@ Route::put('/blogs/{blog}', [blogController::class, 'update'])->name('blogs.upda
 Route::post('/blogs', [blogController::class, 'store'])->name('blogs.store');
 
 Route::post('/blogs/user', [blogController::class, 'storeUser'])->name('blogs.storeUser');
+
+Route::get('/blog/retrieve',[blogController::class, 'retrieve'])->name('blogs.retrieve');
+
+Route::get('/blog/{blog}',[blogController::class, 'destroy'])->name('blogs.destroy');
+

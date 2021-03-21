@@ -8,16 +8,19 @@ use Illuminate\Http\Request;
 
 class blogController extends Controller
 {
-    public $posts = [
-        ['id' => 1, 'title' => 'laravel', 'posted_by' => 'Ahmed', 'created_at' => '2021-03-20', 'description' => 'i hate php'],
-        ['id' => 2, 'title' => 'PHP', 'posted_by' => 'Mohamed', 'created_at' => '2021-04-15', 'description' => 'i hate php :@'],
-        ['id' => 3, 'title' => 'Javascript', 'posted_by' => 'Ali', 'created_at' => '2021-06-01', 'description' => 'i love JAVASCRIPT <3'],
-    ];
-
     public function index()
     {
         return view("index", [
-            'posts' => Blog::all()
+            'posts' => Blog::get()->skip(0)->take(3),
+            'all' => Blog::all()
+        ]);
+    }
+
+    public function page($pageno)
+    {
+        return view("index", [
+            'posts' => Blog::get()->skip(($pageno-1)*3)->take(3),
+            'all' => Blog::all()
         ]);
     }
 
@@ -55,7 +58,8 @@ class blogController extends Controller
     public function edit($postid)
     {
         return view("edit", [
-            'posts' => Blog::find($postid)
+            'posts' => Blog::find($postid),
+            'users' => User::all()
         ]);
     }
 
@@ -64,7 +68,24 @@ class blogController extends Controller
         $blog = Blog::find($postid);
         $blog->title = $request->input('title');
         $blog->description = $request->input('description');
+        $blog->author = $request->input('creator');
         $blog->save();
+        return redirect()->route('blogs.index');
+    }
+
+    public function retrieve()
+    {
+        $blogs=Blog::onlyTrashed()->get();
+        foreach ($blogs as $blog) {
+            Blog::withTrashed()->find($blog->id)->restore();
+        };
+        return redirect()->route('blogs.index');
+    }
+
+    public function destroy($postid)
+    {
+        $record = Blog::find($postid);
+        $record->delete();
         return redirect()->route('blogs.index');
     }
 }

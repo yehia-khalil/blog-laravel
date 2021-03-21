@@ -23,6 +23,8 @@ Route::get('/blogs', [blogController::class, 'index'])->name('blogs.index');
 
 Route::get('/blogs/create', [blogController::class, 'create'])->name('blogs.create');
 
+Route::get('/blogs/create/user', [blogController::class, 'createUser'])->name('blogs.createUser');
+
 Route::get('/blogs/{blog}', [blogController::class, 'show'])->name('blogs.show');
 
 Route::get('/blogs/{blog}/edit', [blogController::class, 'edit'])->name('blogs.edit');
@@ -30,3 +32,5 @@ Route::get('/blogs/{blog}/edit', [blogController::class, 'edit'])->name('blogs.e
 Route::put('/blogs/{blog}', [blogController::class, 'update'])->name('blogs.update');
 
 Route::post('/blogs', [blogController::class, 'store'])->name('blogs.store');
+
+Route::post('/blogs/user', [blogController::class, 'storeUser'])->name('blogs.storeUser');

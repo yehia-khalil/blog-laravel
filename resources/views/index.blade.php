@@ -17,8 +17,8 @@
                     <tr>
                         <th scope="row">{{ $post['id'] }}</th>
                         <td>{{ $post['title'] }}</td>
-                        <td>{{ $post['posted_by'] }}</td>
-                        <td>{{ Carbon\Carbon::now() }}</td>
+                        <td>{{ $post['author'] }}</td>
+                        <td>{{ $post['created_at'] }}</td>
                         <td>
                             <a href="{{ route('blogs.show', ['blog' => $post['id']]) }}" type="button"
                                 class="btn btn-success">view</a>
@@ -32,5 +32,7 @@
 
         <x-button type="primary">View</x-button>
         <a href="blogs/create" type="button" class="btn btn-success">Create New Post</a>
+        <a href="blogs/create/user" type="button" class="btn btn-secondary">Register</a>
+
     </div>
 @endsection

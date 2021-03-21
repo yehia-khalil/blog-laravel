@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="post_creator">Post Creator</label>
                 <select class="form-control" id="post_creator" name="creator">
-                    <option>Ahmed</option>
+                    <option>{{$posts->author}}</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Edit Post</button>

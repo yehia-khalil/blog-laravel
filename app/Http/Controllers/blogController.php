@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class blogController extends Controller
@@ -15,39 +17,54 @@ class blogController extends Controller
     public function index()
     {
         return view("index", [
-            'posts' => $this->posts
+            'posts' => Blog::all()
         ]);
     }
 
     public function show($postid)
     {
         return view("show", [
-            'posts' => $this->posts[$postid - 1]
+            'posts' => Blog::find($postid)
         ]);
     }
 
     public function create()
     {
-        return view("create");
+        return view("create", [
+            'users' => User::all()
+        ]);
+    }
+
+    public function createUser()
+    {
+        return view("createUser");
     }
 
     public function store(Request $request)
     {
-        $ldate = date('Y-m-d H:i:s');
-        $this->posts[] = array('id' => count($this->posts) + 1, 'title' => $request->input('title'), 'posted_by' => $request->input('creator'), 'created_at' => $ldate, 'description' => $request->input('description'));
-        dd($this->posts);
-        // return redirect()->route('blogs.index');
+        $user = User::find($request->input('creator'));
+        Blog::create(array('title' => $request->input('title'), 'author' => $user->name, 'description' => $request->input('description'), 'user_id' => $request->input('creator')));
+        return redirect()->route('blogs.index');
     }
 
+    public function storeUser(Request $request)
+    {
+        User::create(array('name' => $request->input('name'), 'email' => $request->input('email'), 'password' => $request->input('password')));
+        return redirect()->route('blogs.index');
+    }
     public function edit($postid)
     {
         return view("edit", [
-            'posts' => $this->posts[$postid - 1]
+            'posts' => Blog::find($postid)
         ]);
     }
 
-    public function update(Request $request,$postid)
+    public function update(Request $request, $postid)
     {
-        dd($postid);
+        $blog = Blog::find($postid);
+        $blog->title = $request->input('title');
+        $blog->description = $request->input('description');
+        $blog->save();
+        return redirect()->route('blogs.index');
     }
 }

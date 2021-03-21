@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Navbar</span>
+            <a href="{{ route('blogs.index') }}" class="navbar-brand mb-0 h1">LARAVEL</a>
         </div>
     </nav>
 

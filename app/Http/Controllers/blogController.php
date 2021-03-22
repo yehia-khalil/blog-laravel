@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,7 +47,7 @@ class blogController extends Controller
         return view("createUser");
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         $user = User::find($request->input('creator'));
         Blog::create(array('title' => $request->input('title'), 'author' => $user->name, 'description' => $request->input('description'), 'user_id' => $request->input('creator')));
@@ -65,7 +67,7 @@ class blogController extends Controller
         ]);
     }
 
-    public function update(Request $request, $postid)
+    public function update(UpdatePostRequest $request, $postid)
     {
         $blog = Blog::find($postid);
         $blog->title = $request->input('title');

@@ -58,8 +58,8 @@
 
 
         <x-button type="primary">View</x-button>
-        <a href="blogs/create" type="button" class="btn btn-success">Create New Post</a>
-        <a href="blogs/create/user" type="button" class="btn btn-secondary">Register</a>
+        <a href="{{ route('blogs.create') }}" type="button" class="btn btn-success">Create New Post</a>
+        <a href="{{ route('blogs.createUser') }}" type="button" class="btn btn-secondary">Register</a>
         <div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
@@ -67,7 +67,6 @@
                         <li class="page-item"><a class="page-link"
                                 href="{{ route('blogs.page', ['page' => $i + 1]) }}">{{ $i + 1 }}</a></li>
                     @endfor
-
                 </ul>
             </nav>
         </div>

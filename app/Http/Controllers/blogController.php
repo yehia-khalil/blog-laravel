@@ -8,7 +8,7 @@ use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Illuminate\Validation\Rule;
 
 class blogController extends Controller
 {
@@ -49,7 +49,7 @@ class blogController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        $user = User::find($request->input('creator'));
+        $user = User::find($request->input('id'));
         Blog::create(array('title' => $request->input('title'), 'author' => $user->name, 'description' => $request->input('description'), 'user_id' => $request->input('creator')));
         return redirect()->route('blogs.index');
     }
@@ -69,10 +69,14 @@ class blogController extends Controller
 
     public function update(UpdatePostRequest $request, $postid)
     {
+        $validated = $request->validate(
+            ['title'=>'unique:blogs,title,'.Blog::find($postid)->id]
+        );
         $blog = Blog::find($postid);
+        $user = User::find($request->input('id'));
         $blog->title = $request->input('title');
         $blog->description = $request->input('description');
-        $blog->author = $request->input('creator');
+        $blog->author = $user->name;
         $blog->save();
         return redirect()->route('blogs.index');
     }

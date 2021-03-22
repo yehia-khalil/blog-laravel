@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label for="post_creator">Post Creator</label>
-                <select class="form-control" id="post_creator" name="creator">
+                <select class="form-control" id="post_creator" name="id">
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Illuminate\Validation\Rule; 
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePostRequest extends FormRequest
@@ -24,16 +24,15 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required','min:3'],
             'description'=>['required','min:10'],
-            'creator'=>['required','lt:3']
+            'id'=> 'exists:users'
         ];
     }
 
     public function messages()
     {
         return[
-          'creator.lt'=>'User doesnt exist, stop hacking'
+          'id.exists'=>'User doesnt exist, stop hacking'
         ];
     }
 

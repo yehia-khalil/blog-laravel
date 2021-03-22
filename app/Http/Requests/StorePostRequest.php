@@ -28,14 +28,14 @@ class StorePostRequest extends FormRequest
         return [
             'title'=>['required','min:3','unique:blogs,title'],
             'description'=>['required','min:10'],
-            'creator'=>['required','lt:3']
+            'id'=> 'exists:users'
         ];
     }
 
     public function messages()
     {
         return[
-          'creator.lt'=>'User doesnt exist, stop hacking'  
+          'id.exists'=>'User doesnt exist, stop hacking'  
         ];
     }
 

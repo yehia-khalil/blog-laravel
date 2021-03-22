@@ -9,6 +9,7 @@
                     <th scope="col">title</th>
                     <th scope="col">author</th>
                     <th scope="col">date</th>
+                    <th scope="col">slug</th>
                     <th scope="col">Actions</th>
                     <th scope="col">
                         <a href="/blog/retrieve" type="button" class="btn btn-primary">Restore</a>
@@ -22,6 +23,7 @@
                         <td>{{ $post['title'] }}</td>
                         <td>{{ $post['author'] }}</td>
                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post['created_at'])->format('Y-m-d') }}</td>
+                        <td>{{ $post['slug'] }}</td>
                         <td>
                             <a href="{{ route('blogs.show', ['blog' => $post['id']]) }}" type="button"
                                 class="btn btn-success">view</a>

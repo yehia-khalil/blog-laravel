@@ -50,7 +50,7 @@ class blogController extends Controller
     public function store(StorePostRequest $request)
     {
         $user = User::find($request->input('id'));
-        Blog::create(array('title' => $request->input('title'), 'author' => $user->name, 'description' => $request->input('description'), 'user_id' => $request->input('creator')));
+        Blog::create(array('title' => $request->input('title'), 'author' => $user->name, 'description' => $request->input('description'), 'user_id' => $request->input('id')));
         return redirect()->route('blogs.index');
     }
 

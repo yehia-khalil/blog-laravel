@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-
 class Blog extends Model
 {
     use HasFactory;
@@ -28,5 +27,10 @@ class Blog extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

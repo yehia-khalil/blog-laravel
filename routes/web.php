@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,5 +68,19 @@ Route::get('/auth', function (Request $request) {
         Auth::loginUsingId($res[0]->id);
         return redirect('/blogs/page/1');
     }
+});
 
+Route::get('/redirect/google', function () {
+    return Socialite::driver('google')->redirect();
+});
+Route::get('/auth/redirect', function () {
+    $user = Socialite::driver('google')->user();
+    $res = User::where('google_id', $user->id)->get();
+    if (count($res) == 0) {
+        User::create(array('name'=>$user->name, 'email'=>$user->email, 'google_id'=> $user->id));
+        dd('user created');
+    } else {
+        Auth::loginUsingId($res[0]->id);
+        return redirect('/blogs/page/1');
+    }
 });

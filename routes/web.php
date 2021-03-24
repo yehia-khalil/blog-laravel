@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\blogController;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -55,15 +57,17 @@ Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
 });
 
-Route::get('/auth', function () {
+Route::get('/auth', function (Request $request) {
     $user = Socialite::driver('github')->user();
+
     $res = User::where('github_id', $user->id)->get();
+    
     if (count($res) == 0) {
         User::create(array('name'=>$user->name, 'email'=>$user->email, 'github_id'=> $user->id));
         dd('user created');
     } else {
-        dd('empty');
+        Auth::loginUsingId($res[0]->id);
+        return redirect('/blogs/page/1');
     }
 
-    // User::create(array('name' => $user->name, 'email' => $user->email, 'password' => $user->password));
 });

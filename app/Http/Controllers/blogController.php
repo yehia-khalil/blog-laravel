@@ -8,12 +8,16 @@ use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 
 class blogController extends Controller
 {
     public function index()
     {
+        // $request = new Request();
+        // $uri = $request->path();
+        // dd($uri);
         return view("index", [
             'posts' => Blog::get()->skip(0)->take(3),
             'all' => Blog::all()

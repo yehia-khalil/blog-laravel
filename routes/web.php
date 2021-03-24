@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\blogController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware'=>['auth']], function () {
-    Route::get('/blogs', [blogController::class, 'index'])->name('blogs.index');
+    Route::get('/blogs', [blogController::class, 'page'])->name('blogs.index');
 
     Route::get('/blogs/page/{page}', [blogController::class, 'page'])->name('blogs.page');
     
@@ -49,14 +50,20 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
 });
 
-Route::get('/auth/callback', function () {
+Route::get('/auth', function () {
     $user = Socialite::driver('github')->user();
-    dd($user);
+    $res = User::where('github_id', $user->id)->get();
+    if (count($res) == 0) {
+        User::create(array('name'=>$user->name, 'email'=>$user->email, 'github_id'=> $user->id));
+        dd('user created');
+    } else {
+        dd('empty');
+    }
 
-
-    // $user->token
+    // User::create(array('name' => $user->name, 'email' => $user->email, 'password' => $user->password));
 });

@@ -22,7 +22,8 @@
                         <th scope="row">{{ $post['id'] }}</th>
                         <td>{{ $post['title'] }}</td>
                         <td>{{ $post['author'] }}</td>
-                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post['created_at'])->format('Y-m-d') }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post['created_at'])->format('Y-m-d') }}
+                        </td>
                         <td>{{ $post['slug'] }}</td>
                         <td>
                             <a href="{{ route('blogs.show', ['blog' => $post['id']]) }}" type="button"
@@ -65,10 +66,29 @@
         <div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    @for ($i = 0; $i < count($all) / 3; $i++)
+
+                    <li class="page-item"><a class="page-link"
+                            href="{{ route('blogs.page', ['page' => request()->segments()[2] - 1 <= 0 ? 1 : request()->segments()[2] - 1]) }}">Previous</a>
+                    </li>
+                    {{-- @for ($i = request()->segments()[2] - 1 <= 0 ? 1 : request()->segments()[2]; $i < round(count($all) / 3) + 1; $i++)
                         <li class="page-item"><a class="page-link"
-                                href="{{ route('blogs.page', ['page' => $i + 1]) }}">{{ $i + 1 }}</a></li>
+                                href="{{ route('blogs.page', ['page' => $i-1]) }}">{{ $i -1 }}</a></li>
+                    @endfor --}}
+
+                    @for ($i = 0; $i < 3; $i++)
+                        @if (request()->segments()[2] >= ceil(count($all) / 3)) 
+                        @break
+                    @else
+                    <li class="page-item"><a class="page-link"
+                        href="{{ route('blogs.page', ['page' => request()->segments()[2] + $i - 1 <= 0 ? 1 : request()->segments()[2] + $i - 1]) }}">{{ request()->segments()[2] + $i - 1 <= 0 ? 1 : request()->segments()[2] + $i - 1 }}</a>
+                        </li> 
+                    @endif
                     @endfor
+
+
+                    <li class="page-item"><a class="page-link"
+                            href="{{ route('blogs.page', ['page' => request()->segments()[2] + 1 > ceil(count($all) / 3) ? request()->segments()[2] : request()->segments()[2] + 1]) }}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
